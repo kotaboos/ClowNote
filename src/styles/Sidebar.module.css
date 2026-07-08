@@ -28,6 +28,11 @@
   background-clip: text;
 }
 
+.headerActions {
+  display: flex;
+  gap: 8px;
+}
+
 .themeToggle {
   width: 40px;
   height: 40px;
@@ -102,8 +107,57 @@
   color: #ef4444;
 }
 
+.backgroundSection {
+  padding: 0 20px 16px 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.backgroundLabel {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background-color: var(--note-item-hover);
+  color: var(--text-color);
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.backgroundLabel:hover {
+  background-color: var(--note-item-active);
+}
+
+.backgroundInput {
+  display: none;
+}
+
+.removeBackgroundButton {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: none;
+  background: var(--delete-hover);
+  color: #ef4444;
+  cursor: pointer;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+}
+
+.removeBackgroundButton:hover {
+  background: #fee2e2;
+  transform: scale(1.05);
+}
+
 .newNoteButton {
-  margin: 20px;
+  margin: 0 20px 20px 20px;
   padding: 12px 16px;
   border-radius: 12px;
   border: none;
@@ -169,9 +223,14 @@
 
 .noteHeader {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
+  gap: 8px;
   margin-bottom: 8px;
+}
+
+.noteIcon {
+  font-size: 1.2rem;
+  flex-shrink: 0;
 }
 
 .noteTitle {
@@ -182,7 +241,6 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  margin-right: 8px;
 }
 
 .deleteButton {
@@ -255,10 +313,22 @@
   background: var(--primary-color);
 }
 
+.dark .backgroundLabel:hover {
+  background-color: var(--note-item-active);
+}
+
+.dark .removeBackgroundButton:hover {
+  background: #450a0a;
+}
+
 @media (max-width: 768px) {
   .sidebar {
     width: 100%;
     border-right: none;
     border-bottom: 1px solid var(--border-color);
+  }
+  
+  .headerActions {
+    gap: 4px;
   }
 }

@@ -49,6 +49,34 @@
   color: transparent;
 }
 
+.editorToolbar {
+  padding: 16px 32px 0 32px;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.imageUploadButton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border-radius: 8px;
+  background-color: var(--note-item-hover);
+  color: var(--text-color);
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.imageUploadButton:hover {
+  background-color: var(--note-item-active);
+  transform: translateY(-1px);
+}
+
+.imageUploadInput {
+  display: none;
+}
+
 .contentArea {
   flex: 1;
   width: 100%;
@@ -58,10 +86,13 @@
   color: var(--text-color);
   font-size: 1rem;
   line-height: 1.7;
-  resize: none;
   outline: none;
   overflow-y: auto;
   font-family: inherit;
+}
+
+.contentArea:focus {
+  outline: none;
 }
 
 .contentArea::placeholder {
@@ -71,6 +102,14 @@
 
 .contentArea:focus::placeholder {
   color: transparent;
+}
+
+.contentArea img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin: 16px 0;
+  display: block;
 }
 
 .savingIndicator {
@@ -120,6 +159,10 @@
   .titleInput {
     font-size: 1.5rem;
     padding: 16px 20px;
+  }
+  
+  .editorToolbar {
+    padding: 12px 20px 0 20px;
   }
   
   .contentArea {

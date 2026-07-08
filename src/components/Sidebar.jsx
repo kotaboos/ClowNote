@@ -10,9 +10,13 @@ function Sidebar({
   onSearchChange, 
   onCreateNote,
   darkMode,
-  onToggleTheme
+  onToggleTheme,
+  appBackground,
+  onBackgroundUpload,
+  onRemoveBackground
 }) {
   const [isSearching, setIsSearching] = useState(false)
+  const [backgroundPreview, setBackgroundPreview] = useState('')
 
   useEffect(() => {
     setIsSearching(searchQuery.length > 0)
@@ -36,17 +40,51 @@ function Sidebar({
     return date.toLocaleDateString('ru-RU', { day: 'numeric', month: 'short', year: 'numeric' })
   }
 
+  const handleBackgroundUpload = (e) => {
+    const file = e.target.files[0]
+    if (file) {
+      const reader = new FileReader()
+      reader.onload = (event) => {
+        setBackgroundPreview(event.target.result)
+        onBackgroundUpload(e)
+      }
+      reader.readAsDataURL(file)
+    }
+  }
+
+  const getIconForNote = (content) => {
+    if (!content || content.trim() === '') return '📝'
+    
+    const firstLine = content.trim().split('\n')[0].toLowerCase()
+    
+    if (firstLine.includes('фото') || firstLine.includes('картинка') || firstLine.includes('изображение')) {
+      return '🖼️'
+    }
+    if (firstLine.includes('задача') || firstLine.includes('список') || firstLine.includes('todo')) {
+      return '✅'
+    }
+    if (firstLine.includes('идея') || firstLine.includes('мысль')) {
+      return '💡'
+    }
+    if (firstLine.includes('важно') || firstLine.includes('внимание')) {
+      return '⚠️'
+    }
+    return '📝'
+  }
+
   return (
     <div className={`${styles.sidebar} ${darkMode ? styles.dark : ''}`}>
       <div className={styles.header}>
         <h1 className={styles.title}>ClowNote</h1>
-        <button 
-          className={`${styles.themeToggle} ${darkMode ? styles.dark : ''}`}
-          onClick={onToggleTheme}
-          title={darkMode ? 'Светлая тема' : 'Тёмная тема'}
-        >
-          {darkMode ? '☀️' : '🌙'}
-        </button>
+        <div className={styles.headerActions}>
+          <button 
+            className={`${styles.themeToggle} ${darkMode ? styles.dark : ''}`}
+            onClick={onToggleTheme}
+            title={darkMode ? 'Светлая тема' : 'Тёмная тема'}
+          >
+            {darkMode ? '☀️' : '🌙'}
+          </button>
+        </div>
       </div>
       
       <div className={styles.searchContainer}>
@@ -63,6 +101,27 @@ function Sidebar({
             onClick={() => onSearchChange('')}
           >
             ✕
+          </button>
+        )}
+      </div>
+      
+      <div className={styles.backgroundSection}>
+        <label className={styles.backgroundLabel}>
+          🖼️ Фон
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleBackgroundUpload}
+            className={styles.backgroundInput}
+          />
+        </label>
+        {appBackground && (
+          <button 
+            className={styles.removeBackgroundButton}
+            onClick={onRemoveBackground}
+            title="Удалить фон"
+          >
+            🗑️
           </button>
         )}
       </div>
@@ -90,6 +149,9 @@ function Sidebar({
               onClick={() => onSelectNote(note.id)}
             >
               <div className={styles.noteHeader}>
+                <span className={styles.noteIcon}>
+                  {getIconForNote(note.content)}
+                </span>
                 <h3 className={styles.noteTitle}>{note.title || 'Без названия'}</h3>
                 <button
                   className={styles.deleteButton}

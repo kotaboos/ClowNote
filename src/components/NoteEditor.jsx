@@ -5,6 +5,7 @@ function NoteEditor({ note, onUpdateNote, darkMode }) {
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
   const [isTyping, setIsTyping] = useState(false)
+  const [showImageUpload, setShowImageUpload] = useState(false)
   const titleRef = useRef(null)
   const contentRef = useRef(null)
   const debounceTimerRef = useRef(null)
@@ -60,6 +61,20 @@ function NoteEditor({ note, onUpdateNote, darkMode }) {
     }
   }
 
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0]
+    if (file) {
+      const reader = new FileReader()
+      reader.onload = (event) => {
+        const imageHtml = `<img src="${event.target.result}" alt="Встроенное изображение" style="max-width: 100%; height: auto; border-radius: 8px; margin: 16px 0; display: block;" />`
+        setContent(prev => prev + (prev ? '\n' : '') + imageHtml)
+        setIsTyping(true)
+        saveNote(title, content + (content ? '\n' : '') + imageHtml)
+      }
+      reader.readAsDataURL(file)
+    }
+  }
+
   return (
     <div className={`${styles.editor} ${darkMode ? styles.dark : ''}`}>
       {!note ? (
@@ -79,13 +94,29 @@ function NoteEditor({ note, onUpdateNote, darkMode }) {
             className={styles.titleInput}
           />
           
-          <textarea
+          <div className={styles.editorToolbar}>
+            <label className={styles.imageUploadButton}>
+              📷 Добавить фото
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleImageUpload}
+                className={styles.imageUploadInput}
+              />
+            </label>
+          </div>
+          
+          <div 
             ref={contentRef}
-            value={content}
-            onChange={handleContentChange}
-            placeholder="Начните писать..."
+            contentEditable
+            suppressContentEditableWarning
+            onInput={(e) => {
+              setContent(e.target.innerHTML)
+              setIsTyping(true)
+              saveNote(title, e.target.innerHTML)
+            }}
+            dangerouslySetInnerHTML={{ __html: content }}
             className={styles.contentArea}
-            spellCheck={false}
           />
           
           {isTyping && (
