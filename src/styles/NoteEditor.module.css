@@ -1,0 +1,134 @@
+.editor {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-color);
+  transition: var(--transition);
+}
+
+.editor.dark {
+  background-color: var(--bg-color);
+}
+
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: #94a3b8;
+}
+
+.emptyIcon {
+  font-size: 4rem;
+  margin-bottom: 16px;
+  opacity: 0.5;
+}
+
+.emptyState p {
+  font-size: 1rem;
+}
+
+.titleInput {
+  width: 100%;
+  padding: 24px 32px;
+  font-size: 1.75rem;
+  font-weight: 700;
+  border: none;
+  background: transparent;
+  color: var(--text-color);
+  outline: none;
+  transition: var(--transition);
+}
+
+.titleInput::placeholder {
+  color: #cbd5e1;
+}
+
+.titleInput:focus::placeholder {
+  color: transparent;
+}
+
+.contentArea {
+  flex: 1;
+  width: 100%;
+  padding: 0 32px 40px 32px;
+  border: none;
+  background: transparent;
+  color: var(--text-color);
+  font-size: 1rem;
+  line-height: 1.7;
+  resize: none;
+  outline: none;
+  overflow-y: auto;
+  font-family: inherit;
+}
+
+.contentArea::placeholder {
+  color: #cbd5e1;
+  font-style: italic;
+}
+
+.contentArea:focus::placeholder {
+  color: transparent;
+}
+
+.savingIndicator {
+  position: fixed;
+  bottom: 24px;
+  right: 32px;
+  padding: 8px 16px;
+  border-radius: 20px;
+  background-color: var(--sidebar-bg);
+  border: 1px solid var(--border-color);
+  color: #6366f1;
+  font-size: 0.85rem;
+  font-weight: 500;
+  box-shadow: var(--shadow-md);
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.contentArea::-webkit-scrollbar {
+  width: 8px;
+}
+
+.contentArea::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.contentArea::-webkit-scrollbar-thumb {
+  background-color: var(--border-color);
+  border-radius: 4px;
+}
+
+.contentArea::-webkit-scrollbar-thumb:hover {
+  background-color: var(--primary-color);
+}
+
+@media (max-width: 768px) {
+  .titleInput {
+    font-size: 1.5rem;
+    padding: 16px 20px;
+  }
+  
+  .contentArea {
+    padding: 0 20px 30px 20px;
+  }
+  
+  .savingIndicator {
+    bottom: 16px;
+    right: 20px;
+    font-size: 0.8rem;
+  }
+}
