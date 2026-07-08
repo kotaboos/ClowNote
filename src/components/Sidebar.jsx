@@ -16,7 +16,6 @@ function Sidebar({
   onRemoveBackground
 }) {
   const [isSearching, setIsSearching] = useState(false)
-  const [backgroundPreview, setBackgroundPreview] = useState('')
 
   useEffect(() => {
     setIsSearching(searchQuery.length > 0)
@@ -45,7 +44,6 @@ function Sidebar({
     if (file) {
       const reader = new FileReader()
       reader.onload = (event) => {
-        setBackgroundPreview(event.target.result)
         onBackgroundUpload(e)
       }
       reader.readAsDataURL(file)
@@ -77,6 +75,26 @@ function Sidebar({
       <div className={styles.header}>
         <h1 className={styles.title}>ClowNote</h1>
         <div className={styles.headerActions}>
+          <div className={styles.backgroundSection}>
+            <label className={styles.backgroundLabel}>
+              🖼️
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleBackgroundUpload}
+                className={styles.backgroundInput}
+              />
+            </label>
+            {appBackground && (
+              <button 
+                className={styles.removeBackgroundButton}
+                onClick={onRemoveBackground}
+                title="Удалить фон"
+              >
+                🗑️
+              </button>
+            )}
+          </div>
           <button 
             className={`${styles.themeToggle} ${darkMode ? styles.dark : ''}`}
             onClick={onToggleTheme}
@@ -101,27 +119,6 @@ function Sidebar({
             onClick={() => onSearchChange('')}
           >
             ✕
-          </button>
-        )}
-      </div>
-      
-      <div className={styles.backgroundSection}>
-        <label className={styles.backgroundLabel}>
-          🖼️ Фон
-          <input
-            type="file"
-            accept="image/*"
-            onChange={handleBackgroundUpload}
-            className={styles.backgroundInput}
-          />
-        </label>
-        {appBackground && (
-          <button 
-            className={styles.removeBackgroundButton}
-            onClick={onRemoveBackground}
-            title="Удалить фон"
-          >
-            🗑️
           </button>
         )}
       </div>

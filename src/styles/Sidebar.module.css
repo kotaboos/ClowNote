@@ -30,7 +30,58 @@
 
 .headerActions {
   display: flex;
+  align-items: center;
   gap: 8px;
+}
+
+.backgroundSection {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.backgroundLabel {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background-color: var(--note-item-hover);
+  color: var(--text-color);
+  cursor: pointer;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+}
+
+.backgroundLabel:hover {
+  background-color: var(--primary-color);
+  color: white;
+  transform: rotate(-5deg);
+}
+
+.backgroundInput {
+  display: none;
+}
+
+.removeBackgroundButton {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: none;
+  background: var(--delete-hover);
+  color: #ef4444;
+  cursor: pointer;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+}
+
+.removeBackgroundButton:hover {
+  background: #fee2e2;
+  transform: scale(1.05);
 }
 
 .themeToggle {
@@ -107,57 +158,8 @@
   color: #ef4444;
 }
 
-.backgroundSection {
-  padding: 0 20px 16px 20px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.backgroundLabel {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 12px;
-  border-radius: 8px;
-  background-color: var(--note-item-hover);
-  color: var(--text-color);
-  font-size: 0.85rem;
-  cursor: pointer;
-  transition: var(--transition);
-}
-
-.backgroundLabel:hover {
-  background-color: var(--note-item-active);
-}
-
-.backgroundInput {
-  display: none;
-}
-
-.removeBackgroundButton {
-  width: 32px;
-  height: 32px;
-  border-radius: 8px;
-  border: none;
-  background: var(--delete-hover);
-  color: #ef4444;
-  cursor: pointer;
-  font-size: 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: var(--transition);
-}
-
-.removeBackgroundButton:hover {
-  background: #fee2e2;
-  transform: scale(1.05);
-}
-
 .newNoteButton {
-  margin: 0 20px 20px 20px;
+  margin: 20px;
   padding: 12px 16px;
   border-radius: 12px;
   border: none;
@@ -314,7 +316,8 @@
 }
 
 .dark .backgroundLabel:hover {
-  background-color: var(--note-item-active);
+  background: var(--primary-color);
+  color: white;
 }
 
 .dark .removeBackgroundButton:hover {
