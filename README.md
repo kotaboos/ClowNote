@@ -4,8 +4,9 @@
 
 **Demo:** [clow-note.vercel.app](https://clow-note.vercel.app/)
 
-![![alt text](image-1.png)]
-![![alt text](image.png)]
+![alt text](image.png)
+
+![alt text](image-1.png)
 
 ## Технологии
 - React 18
