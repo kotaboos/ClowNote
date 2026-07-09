@@ -2,12 +2,14 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  background-color: var(--bg-color);
+  background: rgba(255, 255, 255, 0.01);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   transition: var(--transition);
 }
 
 .editor.dark {
-  background-color: var(--bg-color);
+  background-color: rgba(9, 20, 36, 0.7);
 }
 
 .emptyState {
@@ -61,7 +63,9 @@
   gap: 8px;
   padding: 10px 16px;
   border-radius: 8px;
-  background-color: var(--note-item-hover);
+  background-color: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
   color: var(--text-color);
   font-size: 0.9rem;
   cursor: pointer;
@@ -69,7 +73,7 @@
 }
 
 .imageUploadButton:hover {
-  background-color: var(--note-item-active);
+  background-color: rgba(255, 255, 255, 0.6);
   transform: translateY(-1px);
 }
 
@@ -82,7 +86,6 @@
   width: 100%;
   padding: 0 32px 40px 32px;
   border: none;
-  background: transparent;
   color: var(--text-color);
   font-size: 1rem;
   line-height: 1.7;
@@ -118,9 +121,11 @@
   right: 32px;
   padding: 8px 16px;
   border-radius: 20px;
-  background-color: var(--sidebar-bg);
+  background-color: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
   border: 1px solid var(--border-color);
-  color: #6366f1;
+  color: #9b9dc5;
   font-size: 0.85rem;
   font-weight: 500;
   box-shadow: var(--shadow-md);

@@ -1,14 +1,17 @@
 .sidebar {
   width: 320px;
-  background-color: var(--sidebar-bg);
-  border-right: 1px solid var(--border-color);
+  background-color: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-right: 1px solid rgba(255, 255, 255, 0.3);
   display: flex;
   flex-direction: column;
   transition: var(--transition);
 }
 
 .sidebar.dark {
-  background-color: var(--sidebar-bg);
+  background-color: rgba(30, 41, 59, 0.75);
+  border-right: 1px solid rgba(0, 0, 0, 0.2);
 }
 
 .header {
@@ -16,7 +19,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .title {
@@ -44,7 +47,9 @@
   width: 36px;
   height: 36px;
   border-radius: 8px;
-  background-color: var(--note-item-hover);
+  background-color: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
   color: var(--text-color);
   cursor: pointer;
   font-size: 1.1rem;
@@ -55,7 +60,7 @@
 }
 
 .backgroundLabel:hover {
-  background-color: var(--primary-color);
+  background-color: rgba(99, 102, 241, 0.8);
   color: white;
   transform: rotate(-5deg);
 }
@@ -69,7 +74,9 @@
   height: 32px;
   border-radius: 8px;
   border: none;
-  background: var(--delete-hover);
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
   color: #ef4444;
   cursor: pointer;
   font-size: 0.9rem;
@@ -80,7 +87,7 @@
 }
 
 .removeBackgroundButton:hover {
-  background: #fee2e2;
+  background: rgba(254, 226, 226, 0.8);
   transform: scale(1.05);
 }
 
@@ -89,7 +96,9 @@
   height: 40px;
   border-radius: 50%;
   border: none;
-  background: var(--note-item-hover);
+  background-color: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
   color: var(--text-color);
   cursor: pointer;
   font-size: 1.2rem;
@@ -100,7 +109,7 @@
 }
 
 .themeToggle:hover {
-  background: var(--primary-color);
+  background-color: rgba(99, 102, 241, 0.8);
   color: white;
   transform: rotate(15deg);
 }
@@ -114,8 +123,10 @@
   width: 100%;
   padding: 12px 40px 12px 16px;
   border-radius: 12px;
-  border: 1px solid var(--border-color);
-  background-color: var(--bg-color);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background-color: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
   color: var(--text-color);
   font-size: 0.95rem;
   transition: var(--transition);
@@ -154,7 +165,7 @@
 
 .clearButton:hover {
   opacity: 1;
-  background: var(--delete-hover);
+  background: rgba(255, 226, 226, 0.8);
   color: #ef4444;
 }
 
@@ -163,7 +174,9 @@
   padding: 12px 16px;
   border-radius: 12px;
   border: none;
-  background: var(--primary-color);
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.8), rgba(139, 92, 246, 0.8));
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   color: white;
   font-size: 0.95rem;
   font-weight: 600;
@@ -177,7 +190,7 @@
 }
 
 .newNoteButton:hover {
-  background: var(--primary-hover);
+  background: linear-gradient(135deg, rgba(79, 70, 229, 0.9), rgba(124, 79, 245, 0.9));
   transform: translateY(-2px);
   box-shadow: var(--shadow-md);
 }
@@ -197,12 +210,12 @@
 }
 
 .notesList::-webkit-scrollbar-thumb {
-  background-color: var(--border-color);
+  background-color: rgba(148, 163, 184, 0.5);
   border-radius: 3px;
 }
 
 .notesList::-webkit-scrollbar-thumb:hover {
-  background-color: var(--primary-color);
+  background-color: rgba(99, 102, 241, 0.8);
 }
 
 .noteItem {
@@ -212,15 +225,19 @@
   cursor: pointer;
   transition: var(--transition);
   border: 1px solid transparent;
+  background-color: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
 }
 
 .noteItem:hover {
-  background-color: var(--note-item-hover);
+  background-color: rgba(255, 255, 255, 0.7);
+  transform: translateX(2px);
 }
 
 .noteItem.active {
-  background-color: var(--note-item-active);
-  border-color: var(--note-item-active-border);
+  background-color: rgba(99, 102, 241, 0.2);
+  border-color: rgba(99, 102, 241, 0.4);
 }
 
 .noteHeader {
@@ -250,7 +267,9 @@
   height: 28px;
   border-radius: 8px;
   border: none;
-  background: transparent;
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
   color: var(--text-color);
   cursor: pointer;
   font-size: 0.9rem;
@@ -266,7 +285,7 @@
 }
 
 .deleteButton:hover {
-  background: var(--delete-hover);
+  background: rgba(255, 226, 226, 0.8);
   opacity: 1;
   color: #ef4444;
 }
@@ -279,6 +298,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
+  line-clamp: 2;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
 }
@@ -299,36 +319,11 @@
   font-size: 0.9rem;
 }
 
-.dark .notePreview {
-  color: #94a3b8;
-}
-
-.dark .noteItem:hover .notePreview {
-  color: var(--text-color);
-}
-
-.dark .deleteButton:hover {
-  background: var(--delete-hover);
-}
-
-.dark .themeToggle:hover {
-  background: var(--primary-color);
-}
-
-.dark .backgroundLabel:hover {
-  background: var(--primary-color);
-  color: white;
-}
-
-.dark .removeBackgroundButton:hover {
-  background: #450a0a;
-}
-
 @media (max-width: 768px) {
   .sidebar {
     width: 100%;
     border-right: none;
-    border-bottom: 1px solid var(--border-color);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
   }
   
   .headerActions {

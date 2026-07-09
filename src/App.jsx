@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react'
+import { useState, useEffect, useMemo, useCallback } from 'react'
 import Sidebar from './components/Sidebar.jsx'
 import NoteEditor from './components/NoteEditor.jsx'
 
@@ -12,7 +12,6 @@ function App() {
   useEffect(() => {
     const savedNotes = localStorage.getItem('clownote_notes')
     const savedTheme = localStorage.getItem('clownote_theme')
-    const savedBackground = localStorage.getItem('clownote_background')
     
     if (savedNotes) {
       setNotes(JSON.parse(savedNotes))
@@ -23,10 +22,6 @@ function App() {
     } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
       setDarkMode(true)
     }
-    
-    if (savedBackground) {
-      setAppBackground(savedBackground)
-    }
   }, [])
 
   useEffect(() => {
@@ -35,13 +30,14 @@ function App() {
 
   useEffect(() => {
     localStorage.setItem('clownote_theme', darkMode ? 'dark' : 'light')
-    localStorage.setItem('clownote_background', appBackground)
     if (darkMode) {
       document.documentElement.classList.add('dark')
+      document.body.classList.add('dark-mode')
     } else {
       document.documentElement.classList.remove('dark')
+      document.body.classList.remove('dark-mode')
     }
-  }, [darkMode, appBackground])
+  }, [darkMode])
 
   const filteredNotes = useMemo(() => {
     return notes.filter(note => 
@@ -77,35 +73,55 @@ function App() {
 
   const selectedNote = notes.find(note => note.id === selectedNoteId)
 
-  const handleBackgroundUpload = (e) => {
-    const file = e.target.files[0]
-    if (file) {
-      const reader = new FileReader()
-      reader.onload = (event) => {
-        setAppBackground(event.target.result)
-      }
-      reader.readAsDataURL(file)
+  const handleBackgroundUpload = useCallback((file) => {
+    console.log('🔍 handleBackgroundUpload called with file:', file?.name, 'size:', file?.size)
+    
+    
+    if (!file) {
+      console.warn('⚠️ No file provided')
+      return
     }
-  }
 
-  const removeBackground = () => {
+    if (file.size > 10 * 1024 * 1024) {
+      alert('Изображение слишком большое (максимум 10MB)')
+      return
+    }
+    
+    const objectUrl = URL.createObjectURL(file)
+    console.log('✅ Creating blob URL:', objectUrl)
+
+    setAppBackground(objectUrl)
+  }, [])
+
+  const removeBackground = useCallback(() => {
+    onsole.log('❌ Removing background, revoking object URL if exists')
+    if (appBackground && typeof appBackground === 'string' && appBackground.startsWith('blob:')) {
+      URL.revokeObjectURL(appBackground)
+    }
     setAppBackground('')
-  }
+  }, [])
 
-  const getBackgroundStyle = () => {
+  useEffect(() => {
     if (appBackground) {
-      return {
-        backgroundImage: `url(${appBackground})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-      }
+      const imageUrl = `url(${appBackground})`
+      document.body.style.setProperty('--background-image', `url(${appBackground})`)
+      document.body.style.setProperty('--background-size', 'cover')
+      document.body.style.setProperty('--background-position', 'center')
+      document.body.style.setProperty('--background-repeat', 'no-repeat')
+      document.body.style.setProperty('--background-opacity', '0.15')
+      document.body.classList.add('has-background')
+    } else {
+      document.body.style.removeProperty('--background-image')
+      document.body.style.removeProperty('--background-size')
+      document.body.style.removeProperty('--background-position')
+      document.body.style.removeProperty('--background-repeat')
+      document.body.style.removeProperty('--background-opacity')
+      document.body.classList.remove('has-background')
     }
-    return { backgroundColor: darkMode ? '#0f172a' : '#f8fafc' }
-  }
+  }, [appBackground])
 
   return (
-    <div className={`app ${darkMode ? 'dark' : ''}`} style={getBackgroundStyle()}>
+    <div className="app">
       <Sidebar
         notes={filteredNotes}
         selectedNoteId={selectedNoteId}
@@ -120,11 +136,13 @@ function App() {
         onBackgroundUpload={handleBackgroundUpload}
         onRemoveBackground={removeBackground}
       />
-      <NoteEditor
-        note={selectedNote}
-        onUpdateNote={updateNote}
-        darkMode={darkMode}
-      />
+      <div className="app-content">
+        <NoteEditor
+          note={selectedNote}
+          onUpdateNote={updateNote}
+          darkMode={darkMode}
+        />
+      </div>
     </div>
   )
 }

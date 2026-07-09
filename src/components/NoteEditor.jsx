@@ -5,7 +5,6 @@ function NoteEditor({ note, onUpdateNote, darkMode }) {
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
   const [isTyping, setIsTyping] = useState(false)
-  const [showImageUpload, setShowImageUpload] = useState(false)
   const titleRef = useRef(null)
   const contentRef = useRef(null)
   const debounceTimerRef = useRef(null)

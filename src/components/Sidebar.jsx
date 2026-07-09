@@ -40,11 +40,14 @@ function Sidebar({
   }
 
   const handleBackgroundUpload = (e) => {
+    console.log('Sidebar handleBackgroundUpload called')
     const file = e.target.files[0]
+    console.log('File selected:', file)
     if (file) {
       const reader = new FileReader()
-      reader.onload = (event) => {
-        onBackgroundUpload(e)
+      reader.onload = (loadEvent) => {
+        console.log('File loaded, calling parent with loadEvent')
+        onBackgroundUpload(file)
       }
       reader.readAsDataURL(file)
     }
